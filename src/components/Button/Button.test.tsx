@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Button, { ButtonProps } from "./Button";
 
 // Sut: System Under Test
@@ -20,5 +20,14 @@ describe("<Button />", () => {
     fireEvent.click(getByText(/label/));
 
     expect(spy).toHaveBeenCalled();
+  });
+
+  test("Should switch button label on click", () => {
+    const { getByText } = makeSut({ label: "Hide" });
+    const button = screen.getByTestId("button")
+
+    fireEvent.click(button)
+
+    expect(getByText(/Hide/)).toBeInTheDocument();
   });
 });
